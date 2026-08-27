@@ -1,0 +1,32 @@
+using System;
+
+Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+try
+{
+    Console.Write("Nhập số thứ nhất (a): ");
+    double a = double.Parse(Console.ReadLine() ?? "0");
+
+    Console.Write("Nhập số thứ hai (b): ");
+    double b = double.Parse(Console.ReadLine() ?? "0");
+
+    Console.Write("Nhập phép toán (+, -, *, /, %): ");
+    char op = char.Parse(Console.ReadLine() ?? "+");
+
+    string result = (op, b) switch
+    {
+        ('+', _) => $"{a + b:F2}",
+        ('-', _) => $"{a - b:F2}",
+        ('*', _) => $"{a * b:F2}",
+        ('/', 0) or ('%', 0) => "Lỗi: Không thể chia cho 0!",
+        ('/', _) => $"{a / b:F2}",
+        ('%', _) => $"{a % b:F2}",
+        _ => "Lỗi: Phép toán không hợp lệ!"
+    };
+
+    Console.WriteLine($"Kết quả: {result}");
+}
+catch (FormatException)
+{
+    Console.WriteLine("Lỗi: Dữ liệu nhập vào không đúng định dạng!");
+}

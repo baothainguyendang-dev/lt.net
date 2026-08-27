@@ -1,0 +1,73 @@
+using System;
+
+Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+try
+{
+// 1. Nhập số nguyên dương N
+Console.Write("Nhập số nguyên dương N: ");
+int n = int.Parse(Console.ReadLine() ?? "0");
+
+    if (n <= 0)
+    {
+        Console.WriteLine("Vui lòng nhập một số nguyên dương lớn hơn 0!");
+        return;
+    }
+
+    // 2 & 3. Kiểm tra Số nguyên tố & Số hoàn hảo
+    bool checkPrime = IsPrime(n);
+    bool checkPerfect = IsPerfectNumber(n);
+
+    // Hiển thị kết quả kiểm tra
+    string primeStr = checkPrime ? $"{n} là Số nguyên tố." : $"{n} KHÔNG là Số nguyên tố.";
+    string perfectStr = checkPerfect ? $"{n} là Số hoàn hảo!" : $"{n} KHÔNG là Số hoàn hảo.";
+
+    Console.WriteLine($"{perfectStr} {primeStr}");
+
+    // 4. In ra N số đầu tiên của dãy Fibonacci
+    Console.Write($"Dãy Fibonacci {n} số: ");
+    PrintFibonacci(n);
+
+}
+catch (FormatException)
+{
+Console.WriteLine("Lỗi: Vui lòng nhập số nguyên hợp lệ!");
+}
+
+// --------------------------------------------------
+// HÀM KIỂM TRA SỐ NGUYÊN TỐ
+static bool IsPrime(int n)
+{
+if (n < 2) return false;
+for (int i = 2; i <= Math.Sqrt(n); i++)
+{
+if (n % i == 0) return false;
+}
+return true;
+}
+
+// HÀM KIỂM TRA SỐ HOÀN HẢO
+static bool IsPerfectNumber(int n)
+{
+if (n <= 1) return false;
+int sum = 0;
+for (int i = 1; i <= n / 2; i++)
+{
+if (n % i == 0) sum += i;
+}
+return sum == n;
+}
+
+// HÀM IN DÃY FIBONACCI
+static void PrintFibonacci(int n)
+{
+long a = 0, b = 1;
+for (int i = 0; i < n; i++)
+{
+Console.Write(a + (i < n - 1 ? ", " : ""));
+long next = a + b;
+a = b;
+b = next;
+}
+Console.WriteLine();
+}
